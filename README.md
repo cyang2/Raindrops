@@ -6,4 +6,6 @@ Your goal is to catch raindrops that fall from the sky using the catcher object,
 
 Points are scored by catching raindrops.
 
-After a certain number of raindrops fall to the bottom of the screen without being caught, **YOU LOSE!**
+When the score reaches 5, you will move onto the next level.
+
+When the score reaches -5, **YOU LOSE!**
