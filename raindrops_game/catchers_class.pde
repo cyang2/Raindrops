@@ -6,6 +6,7 @@ class catchers {
   }
 
   void show() {
+    fill(255);
     loc.set(mouseX, height - 75);
     ellipse(loc.x, loc.y, d, d);
   }
