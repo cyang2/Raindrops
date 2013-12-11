@@ -1,4 +1,5 @@
-class catchers {
+class catchers
+{
   PVector loc;
 
   catchers() {

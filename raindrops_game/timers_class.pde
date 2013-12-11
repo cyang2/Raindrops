@@ -1,4 +1,5 @@
-class timers {
+class timers
+{
   int old;
 
   timers() {

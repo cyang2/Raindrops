@@ -97,27 +97,14 @@ void draw()
   text("Level", width/2, 50);
   text(level, width/2, 75);
   //setup screen
-  if (play == false)
-  {
-    //game over screen
-    if (score == -5)
-    {
-      background(255, 0, 0);
-      fill(0);
-      textSize(100);
-      text("GAME\nOVER", width/2, height/2 - 100);
-      textSize(50);
-      text("Level", width/2 - 20, height/2 + 150);
-      text(level, width/2 + 80, height/2 + 150);
-    }
-    else {
-      background(255);
-      fill(0, 255, 0);
-      textSize(40);
-      text("Raindrops", 250, 100);
-      textSize(20);
-      text("Press Space to Begin!", 250, 200);
-    }
+  gameovercheck();
+  if (play == false && score != -5) {
+    background(255);
+    fill(0, 255, 0);
+    textSize(40);
+    text("Raindrops", 250, 100);
+    textSize(20);
+    text("Press Space to Begin!", 250, 200);
   }
   if (score == 5)
   {
@@ -136,6 +123,23 @@ void keyPressed()
   if (key == ' ')
   {
     play = true;
+  }
+}
+
+void gameovercheck()
+{
+  if (play == false)
+  {
+    if (score == -5)
+    {
+      background(255, 0, 0);
+      fill(0);
+      textSize(100);
+      text("GAME\nOVER", width/2, height/2 - 100);
+      textSize(50);
+      text("Level", width/2 - 20, height/2 + 150);
+      text(level, width/2 + 80, height/2 + 150);
+    }
   }
 }
 
