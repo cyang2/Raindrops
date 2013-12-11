@@ -9,7 +9,8 @@ class raindrops
     drop = loadImage("drop.png");
     imageMode(CENTER);
     loc = new PVector(random(width), -drop.height);
-    vel = new PVector(0, 2);
+    //increase difficulty as level increases
+    vel = new PVector(0, 2 + level);
     acc = new PVector(0, .1);
   }
 

@@ -105,7 +105,10 @@ void draw()
       background(255, 0, 0);
       fill(0);
       textSize(100);
-      text("GAME\nOVER", width/2, height/2 - 50);
+      text("GAME\nOVER", width/2, height/2 - 100);
+      textSize(50);
+      text("Level", width/2 - 20, height/2 + 150);
+      text(level, width/2 + 80, height/2 + 150);
     }
     else {
       background(255);
