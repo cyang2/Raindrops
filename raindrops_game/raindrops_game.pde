@@ -87,59 +87,102 @@ void draw()
         }
       }
     }
-    //catcher
     catcher.show();
     //displaying the score
     fill(0, 255, 0);
     text(score, 50, 50);
+    //displaying the level
+    text("Level", width/2, 50);
+    text(level, width/2, 75);
   }
-  //displaying the level
-  text("Level", width/2, 50);
-  text(level, width/2, 75);
-  //setup screen
+  restartcheck();
   gameovercheck();
-  if (play == false && score != -5) {
+  startscreencheck();
+  levelupcheck();
+}
+
+//void keyPressed()
+//{
+//  //start screen
+//  if (key == ' ')
+//  {
+//    play = true;
+//  }
+//  //reset to start screen
+//}
+
+void gameovercheck()
+{
+  if (score == -5)
+  {
+    play = false;
+    background(255, 0, 0);
+    fill(0);
+    textSize(100);
+    text("GAME\nOVER", width/2, height/2 - 100);
+    textSize(50);
+    text("Level", width/2 - 20, height/2 + 150);
+    text(level, width/2 + 80, height/2 + 150);
+  }
+}
+
+void startscreencheck()
+{
+  if (play == false && score >-5) {
+    for (int i = 0; i < drop.length; i++)
+    {
+      drop[i].loc = new PVector(random(width), -238);
+      drop[i].vel = new PVector(0, 2 + level);
+      dropNum = 0;
+      full = false;
+    }
     background(255);
     fill(0, 255, 0);
     textSize(40);
     text("Raindrops", 250, 100);
     textSize(20);
     text("Press Space to Begin!", 250, 200);
+    if (keyPressed && key == ' ')
+    {
+      play = true;
+      level = 0;
+    }
   }
+}
+
+void levelupcheck()
+{
   if (score == 5)
   {
     level++;
     score = 0;
   }
-  //losing
-  if (score == -5)
+}
+
+void restartcheck()
+{
+  if (keyPressed && key == 'r')
   {
     play = false;
-  }
-}
-
-void keyPressed()
-{
-  if (key == ' ')
-  {
-    play = true;
-  }
-}
-
-void gameovercheck()
-{
-  if (play == false)
-  {
-    if (score == -5)
+    score = 0;
+    startscreencheck();
+    for (int i = 0; i < drop.length; i++)
     {
-      background(255, 0, 0);
-      fill(0);
-      textSize(100);
-      text("GAME\nOVER", width/2, height/2 - 100);
-      textSize(50);
-      text("Level", width/2 - 20, height/2 + 150);
-      text(level, width/2 + 80, height/2 + 150);
+      drop[i].loc = new PVector(random(width), -238);
+      drop[i].vel = new PVector(0, 2 + level);
+      dropNum = 0;
+      full = false;
     }
+  }
+}
+
+void pause()
+{
+  for (int i = 0; i < drop.length; i++)
+  {
+    drop[i].vel = new PVector(0, 2 + level);
+    dropNum = 0;
+    full = false;
   }
 }
 
