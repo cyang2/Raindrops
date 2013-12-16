@@ -12,6 +12,7 @@ void setup()
 {
   size(500, 500);
   d = 50;
+  //declaring the raindrops
   for (int i = 0; i < drop.length; i++)
   {
     drop[i] = new raindrops();
@@ -41,50 +42,24 @@ void draw()
         full = true;
       }
     }
-    if (!full)
+    //only letting dropNum number of raindrops fall
+    for (int i = 0; i < dropNum+1; i++)
     {
-      //only letting dropNum number of raindrops fall
-      for (int i = 0; i < dropNum+1; i++)
+      drop[i].show();
+      drop[i].fall();
+      //catching the raindrops
+      if (drop[i].loc.dist(catcher.loc) <= d/2)
       {
-        drop[i].show();
-        drop[i].fall();
-        //catching the raindrops
-        if (dist(drop[i].loc.x, drop[i].loc.y, catcher.loc.x, catcher.loc.y) <= d/2)
-        {
-          drop[i].loc.x = -100;
-          score++;
-        }
-        //decreasing the score
-        if (drop[i].loc.y >= height + 20 && drop[i].loc.x >= 0)
-        {
-          drop[i].loc.y = height + 10;
-          drop[i].vel.y = 0;
-          drop[i].acc.y = 0;
-          score--;
-        }
+        drop[i].loc.x = -100;
+        score++;
       }
-    }
-    //when array is full, all 500 raindrops in the array fall
-    if (full)
-    {
-      for (int i = 0; i < drop.length; i++)
+      //decreasing the score
+      if (drop[i].loc.y >= height + 20 && drop[i].loc.x >= 0)
       {
-        drop[i].show();
-        drop[i].fall();
-        //catching the raindrops
-        if (dist(drop[i].loc.x, drop[i].loc.y, catcher.loc.x, catcher.loc.y) <= d/2)
-        {
-          drop[i].loc.x = -100;
-          score++;
-        }
-        //decreasing the score
-        if (drop[i].loc.y >= height + 20 && drop[i].loc.x >= 0)
-        {
-          drop[i].loc.y = height + 10;
-          drop[i].vel.y = 0;
-          drop[i].acc.y = 0;
-          score--;
-        }
+        drop[i].loc.y = height + 10;
+        drop[i].vel.y = 0;
+        drop[i].acc.y = 0;
+        score--;
       }
     }
     catcher.show();
@@ -100,16 +75,6 @@ void draw()
   startscreencheck();
   levelupcheck();
 }
-
-//void keyPressed()
-//{
-//  //start screen
-//  if (key == ' ')
-//  {
-//    play = true;
-//  }
-//  //reset to start screen
-//}
 
 void gameovercheck()
 {
@@ -131,7 +96,7 @@ void startscreencheck()
   if (play == false && score >-5) {
     for (int i = 0; i < drop.length; i++)
     {
-      drop[i].loc = new PVector(random(width), -238);
+      drop[i].loc = new PVector(random(width), -drop[i].drop.height);
       drop[i].vel = new PVector(0, 2 + level);
       dropNum = 0;
       full = false;
@@ -164,25 +129,26 @@ void restartcheck()
   if (keyPressed && key == 'r')
   {
     play = false;
+    level = 0;
     score = 0;
     startscreencheck();
     for (int i = 0; i < drop.length; i++)
     {
-      drop[i].loc = new PVector(random(width), -238);
-      drop[i].vel = new PVector(0, 2 + level);
-      dropNum = 0;
-      full = false;
+      drop[i] = new raindrops();
     }
   }
 }
 
 void pause()
 {
-  for (int i = 0; i < drop.length; i++)
+  if (keyPressed && key == 'p')
   {
-    drop[i].vel = new PVector(0, 2 + level);
-    dropNum = 0;
-    full = false;
+    for (int i = 0; i < drop.length; i++)
+    {
+      drop[i].vel = new PVector(0, 2 + level);
+      dropNum = 0;
+      full = false;
+    }
   }
 }
 

@@ -1,9 +1,11 @@
 class catchers
 {
   PVector loc;
+  PImage catcher;
 
   catchers() {
     loc = new PVector(mouseX, height - 75);
+    
   }
 
   void show() {
