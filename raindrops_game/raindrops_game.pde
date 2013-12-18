@@ -91,24 +91,9 @@ void gameovercheck()
   }
 }
 
-void restartcheck()
-{
-  if (keyPressed && key == 'r')
-  {
-    play = false;
-    level = 0;
-    score = 0;
-    startscreencheck();
-    for (int i = 0; i < drop.length; i++)
-    {
-      drop[i] = new raindrops();
-    }
-  }
-}
-
 void startscreencheck()
 {
-  if (play == false && score > -5) {
+  if (play == false && score >-5) {
     for (int i = 0; i < drop.length; i++)
     {
       drop[i].loc = new PVector(random(width), -drop[i].drop.height);
@@ -139,13 +124,28 @@ void levelupcheck()
   }
 }
 
+void restartcheck()
+{
+  if (keyPressed && key == 'r')
+  {
+    play = false;
+    level = 0;
+    score = 0;
+    startscreencheck();
+    for (int i = 0; i < drop.length; i++)
+    {
+      drop[i] = new raindrops();
+    }
+  }
+}
+
 void pause()
 {
   if (keyPressed && key == 'p')
   {
     for (int i = 0; i < drop.length; i++)
     {
-      drop[i].vel = new PVector(0, 0);
+      drop[i].vel = new PVector(0, 2 + level);
       dropNum = 0;
       full = false;
     }
