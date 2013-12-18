@@ -7,6 +7,7 @@ int d;
 int score;
 boolean play = false;
 int level;
+boolean pause, restart;
 
 void setup()
 {
@@ -26,6 +27,10 @@ void setup()
 
 void draw()
 {
+  if (!play && !pause)
+  {
+    startscreen();
+  }
   if (play)
   {
     background(0);
@@ -70,10 +75,41 @@ void draw()
     text("Level", width/2, 50);
     text(level, width/2, 75);
   }
-  restartcheck();
   gameovercheck();
-  startscreencheck();
   levelupcheck();
+  if (pause)
+  {
+    play = false;
+    full = false;
+  }
+  if (restart)
+  {
+    play = false;
+    restart = false;
+    level = 0;
+    score = 0;
+    startscreen();
+    for (int i = 0; i < drop.length; i++)
+    {
+      drop[i] = new raindrops();
+    }
+  }
+}
+
+void keyPressed()
+{
+  if (key == 'p')
+  {
+    pause = !pause;
+    if (!pause)
+    {
+      play = true;
+    }
+  }
+  if (key == 'r')
+  {
+    restart = true;
+  }
 }
 
 void gameovercheck()
@@ -91,27 +127,30 @@ void gameovercheck()
   }
 }
 
-void startscreencheck()
+void startscreen()
 {
-  if (play == false && score >-5) {
-    for (int i = 0; i < drop.length; i++)
-    {
-      drop[i].loc = new PVector(random(width), -drop[i].drop.height);
-      drop[i].vel = new PVector(0, 2 + level);
-      dropNum = 0;
-      full = false;
-    }
-    background(255);
-    fill(0, 255, 0);
-    textSize(40);
-    text("Raindrops", 250, 100);
-    textSize(20);
-    text("Press Space to Begin!", 250, 200);
-    if (keyPressed && key == ' ')
-    {
-      play = true;
-      level = 0;
-    }
+  if (keyPressed && key == 'p')
+  {
+    pause = false;
+  }
+  for (int i = 0; i < drop.length; i++)
+  {
+    drop[i].loc = new PVector(random(width), -drop[i].drop.height);
+    drop[i].vel = new PVector(0, 2 + level);
+    dropNum = 0;
+    full = false;
+  }
+  background(255);
+  fill(0, 255, 0);
+  textSize(40);
+  text("Raindrops", 250, 100);
+  textSize(20);
+  text("Press Space to Begin!", 250, 200);
+  if (keyPressed && key == ' ')
+  {
+    play = true;
+    level = 0;
+    score = 0;
   }
 }
 
@@ -121,34 +160,6 @@ void levelupcheck()
   {
     level++;
     score = 0;
-  }
-}
-
-void restartcheck()
-{
-  if (keyPressed && key == 'r')
-  {
-    play = false;
-    level = 0;
-    score = 0;
-    startscreencheck();
-    for (int i = 0; i < drop.length; i++)
-    {
-      drop[i] = new raindrops();
-    }
-  }
-}
-
-void pause()
-{
-  if (keyPressed && key == 'p')
-  {
-    for (int i = 0; i < drop.length; i++)
-    {
-      drop[i].vel = new PVector(0, 2 + level);
-      dropNum = 0;
-      full = false;
-    }
   }
 }
 
