@@ -120,10 +120,12 @@ void gameovercheck()
     background(255, 0, 0);
     fill(0);
     textSize(100);
-    text("GAME\nOVER", width/2, height/2 - 100);
+    text("GAME\nOVER", width/2, height/2 - 150);
     textSize(50);
-    text("Level", width/2 - 20, height/2 + 150);
-    text(level, width/2 + 80, height/2 + 150);
+    text("Level", width/2 - 20, height/2 + 75);
+    text(level, width/2 + 80, height/2 + 75);
+    textSize(40);
+    text("Press 'R' to Restart", width/2, height/2 + 175);
   }
 }
 
