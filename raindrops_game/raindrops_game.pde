@@ -22,7 +22,7 @@ void setup()
   timer = new timers();
   textSize(30);
   textAlign(CENTER);
-  noCursor();
+//  noCursor();
 }
 
 void draw()
@@ -53,7 +53,7 @@ void draw()
       drop[i].show();
       drop[i].fall();
       //catching the raindrops
-      if (drop[i].loc.dist(catcher.loc) <= d/2)
+      if (drop[i].loc.x >= mouseX && drop[i].loc.x <= mouseX + 72 && drop[i].loc.y >= catcher.loc.y && drop[i].loc.y <= catcher.loc.y + 70)
       {
         drop[i].loc.x = -100;
         score++;
