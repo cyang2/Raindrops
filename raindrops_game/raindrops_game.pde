@@ -70,10 +70,13 @@ void draw()
     catcher.show();
     //displaying the score
     fill(0, 255, 0);
-    text(score, 50, 50);
+    text("Score", 50, 50);
+    text(score, 50, 75);
     //displaying the level
     text("Level", width/2, 50);
     text(level, width/2, 75);
+    //displaying the pause instructions
+    text ("Press P to Pause", width - 100, 50);
   }
   gameovercheck();
   levelupcheck();
