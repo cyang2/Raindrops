@@ -53,7 +53,7 @@ void draw()
       drop[i].show();
       drop[i].fall();
       //catching the raindrops
-      if (drop[i].loc.dist(catcher.loc) <= d/2)
+      if (drop[i].loc.x >= mouseX && drop[i].loc.x <= mouseX + 72 && drop[i].loc.y >= catcher.loc.y && drop[i].loc.y <= catcher.loc.y + 70)
       {
         drop[i].loc.x = -100;
         score++;
@@ -87,6 +87,7 @@ void draw()
   }
   if (restart)
   {
+    pause = false;
     play = false;
     restart = false;
     level = 0;
@@ -103,10 +104,18 @@ void keyPressed()
 {
   if (key == 'p')
   {
-    pause = !pause;
-    if (!pause)
+    //this looks like superfluous code but it prevents the player from accidentally pausing and getting stuck on the start screen
+    if (play)
     {
-      play = true;
+      pause = true;
+      if (!pause)
+      {
+        play = true;
+      }
+    }
+    else
+    {
+      pause = false;
     }
   }
   if (key == 'r')
@@ -134,10 +143,7 @@ void gameovercheck()
 
 void startscreen()
 {
-  if (keyPressed && key == 'p')
-  {
-    pause = false;
-  }
+  //refreshes and resets the raindrops
   for (int i = 0; i < drop.length; i++)
   {
     drop[i].loc = new PVector(random(width), -drop[i].drop.height);
