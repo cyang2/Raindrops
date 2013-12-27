@@ -8,6 +8,7 @@ int score;
 boolean play = false;
 int level;
 boolean pause, restart;
+int mode;
 
 void setup()
 {
@@ -27,11 +28,33 @@ void setup()
 
 void draw()
 {
-  if (!play && !pause)
+  if (mode == 0)
   {
-    startscreen();
-  }
-  if (play)
+    //resets score and level
+    score = 0;
+    level = 0;
+    //refreshes and resets the raindrops
+    for (int i = 0; i < drop.length; i++)
+    {
+      drop[i].loc = new PVector(random(width), -drop[i].drop.height);
+      drop[i].vel = new PVector(0, 2 + level);
+      dropNum = 0;
+      full = false;
+    }
+    background(255);
+    fill(0, 255, 0);
+    textSize(40);
+    text("Raindrops", 250, 100);
+    textSize(20);
+    text("Press Space to Begin!", 250, 200);
+    if (keyPressed && key == ' ')
+    {
+      mode = 1;
+      level = 0;
+      score = 0;
+    }
+  }  
+  if (mode == 1)
   {
     background(0);
     //RAINDROPS
@@ -69,6 +92,7 @@ void draw()
     }
     catcher.show();
     //displaying the score
+    textSize(20);
     fill(0, 255, 0);
     text("Score", 50, 50);
     text(score, 50, 75);
@@ -76,52 +100,31 @@ void draw()
     text("Level", width/2, 50);
     text(level, width/2, 75);
     //displaying the pause instructions
-    text ("Press P to Pause", width - 100, 50);
+    textSize(15);
+    text("P to Pause", width - 70, 45);
+    text("Space to Unpause", width - 70, 65);
+    text("R to Restart", width - 70, 85);
   }
   gameovercheck();
   levelupcheck();
-  if (pause)
-  {
-    play = false;
-    full = false;
-  }
-  if (restart)
-  {
-    pause = false;
-    play = false;
-    restart = false;
-    level = 0;
-    score = 0;
-    startscreen();
-    for (int i = 0; i < drop.length; i++)
-    {
-      drop[i] = new raindrops();
-    }
-  }
+  println(mode);
 }
+
 
 void keyPressed()
 {
-  if (key == 'p')
+  //pausing
+  if (key == 'p' && mode == 1)
   {
-    //this looks like superfluous code but it prevents the player from accidentally pausing and getting stuck on the start screen
-    if (play)
-    {
-      pause = true;
-      if (!pause)
-      {
-        play = true;
-      }
-    }
-    if (!play)
-    {
-      play = true;
-      pause = false;
-    }
+    mode = 2;
+  }
+  if (key == ' ')
+  {
+    mode = 1;
   }
   if (key == 'r')
   {
-    restart = true;
+    mode = 0;
   }
 }
 
@@ -129,7 +132,7 @@ void gameovercheck()
 {
   if (score == -5)
   {
-    play = false;
+    mode = 3;
     background(255, 0, 0);
     fill(0);
     textSize(100);
@@ -142,29 +145,7 @@ void gameovercheck()
   }
 }
 
-void startscreen()
-{
-  //refreshes and resets the raindrops
-  for (int i = 0; i < drop.length; i++)
-  {
-    drop[i].loc = new PVector(random(width), -drop[i].drop.height);
-    drop[i].vel = new PVector(0, 2 + level);
-    dropNum = 0;
-    full = false;
-  }
-  background(255);
-  fill(0, 255, 0);
-  textSize(40);
-  text("Raindrops", 250, 100);
-  textSize(20);
-  text("Press Space to Begin!", 250, 200);
-  if (keyPressed && key == ' ')
-  {
-    play = true;
-    level = 0;
-    score = 0;
-  }
-}
+
 
 void levelupcheck()
 {
