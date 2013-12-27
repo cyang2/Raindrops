@@ -113,8 +113,9 @@ void keyPressed()
         play = true;
       }
     }
-    else
+    if (!play)
     {
+      play = true;
       pause = false;
     }
   }

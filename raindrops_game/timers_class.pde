@@ -2,11 +2,13 @@ class timers
 {
   int old;
 
-  timers() {
+  timers()
+  {
     old = 0;
   }
 
-  boolean count() {
+  boolean count()
+  {
     boolean t = false;
     if (millis() - old >= 500)  //this is when it'll do something
     {
