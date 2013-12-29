@@ -9,14 +9,17 @@ class timers
 
   boolean count()
   {
+    //set t to false if the time hasn't passed yet
     boolean t = false;
-    if (millis() - old >= 500)  //this is when it'll do something
+    //this is when it'll do something
+    if (millis() - old >= 500)
     {
       //reset the counter to 0
       old = millis();
-      //make the if statement run in the main code
+      //set t to true because the right amount of time has passed
       t = true;
     }
+    //make the if statement run
     return t;
   }
 }

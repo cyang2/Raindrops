@@ -2,12 +2,12 @@ class raindrops
 {
   PVector loc, vel, acc;
   PImage drop;
-  float tintx;
 
   raindrops()
   {
     drop = loadImage("drop.png");
     imageMode(CENTER);
+    //makes the raindrops start at a random x value just above the screen
     loc = new PVector(random(width), -drop.height);
     //increase difficulty as level increases
     vel = new PVector(0, 2 + level);
@@ -22,7 +22,9 @@ class raindrops
   void fall()
   {
     loc.add(vel);
-    if (loc.y >= 0) {
+    //makes sure the raindrops don't accelerate until they are past the top of the screen
+    if (loc.y >= 0)
+    {
       vel.add(acc);
     }
   }

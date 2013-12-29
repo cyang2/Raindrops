@@ -1,19 +1,21 @@
+//comments are directed towards the code underneath them
+
 raindrops[] drop = new raindrops[500];
 catchers catcher;
 timers timer;
-boolean full = false;
 int dropNum;
 int d;
 int score;
-boolean play = false;
 int level;
-boolean pause, restart;
 int mode;
 
 void setup()
 {
   size(500, 500);
   d = 50;
+  score = 0;
+  level = 0;
+  mode = 0;
   //declaring the raindrops
   for (int i = 0; i < drop.length; i++)
   {
@@ -28,6 +30,7 @@ void setup()
 
 void draw()
 {
+  //START SCREEN MODE
   if (mode == 0)
   {
     //resets score and level
@@ -39,7 +42,6 @@ void draw()
       drop[i].loc = new PVector(random(width), -drop[i].drop.height);
       drop[i].vel = new PVector(0, 2 + level);
       dropNum = 0;
-      full = false;
     }
     background(255);
     fill(0, 255, 0);
@@ -47,27 +49,33 @@ void draw()
     text("Raindrops", 250, 100);
     textSize(20);
     text("Press Space to Begin!", 250, 200);
+    //starts playing the game
     if (keyPressed && key == ' ')
     {
+      //switches to the play mode
       mode = 1;
+      //resets the score and level
       level = 0;
       score = 0;
     }
-  }  
+  }
+  //PLAY MODE
   if (mode == 1)
   {
     background(0);
-    //RAINDROPS
-    //creating raindrops
+    //Raindrops
+    //creating raindrops based on time
+    //runs every 500 ms
     if (timer.count())
     {
+      //creates a new raindrop in order
       drop[dropNum] = new raindrops();
+      //increases the number of raindrops allowed to fall
       dropNum++;
-      //resetting after array fills
+      //resetting after array fills/runs out
       if (dropNum >= drop.length)
       {
         dropNum = 0;
-        full = true;
       }
     }
     //only letting dropNum number of raindrops fall
@@ -78,15 +86,19 @@ void draw()
       //catching the raindrops
       if (drop[i].loc.x >= mouseX && drop[i].loc.x <= mouseX + 72 && drop[i].loc.y >= catcher.loc.y && drop[i].loc.y <= catcher.loc.y + 70)
       {
+        //moving the caught raindrops off the screen to the left
         drop[i].loc.x = -100;
+        //increasing the score when the raindrops are caught
         score++;
       }
-      //decreasing the score
+      //decreasing the score when raindrops fall to the bottom
       if (drop[i].loc.y >= height + 20 && drop[i].loc.x >= 0)
       {
+        //making the raindrops stop moving and ensuring that they only decrease the score by one point 
         drop[i].loc.y = height + 10;
         drop[i].vel.y = 0;
         drop[i].acc.y = 0;
+        //decreasing the score
         score--;
       }
     }
@@ -107,7 +119,6 @@ void draw()
   }
   gameovercheck();
   levelupcheck();
-  println(mode);
 }
 
 
@@ -116,14 +127,19 @@ void keyPressed()
   //pausing
   if (key == 'p' && mode == 1)
   {
+    //PAUSE MODE
     mode = 2;
   }
+  //unpausing
   if (key == ' ')
   {
+    //PLAY MODES
     mode = 1;
   }
+  //restarting
   if (key == 'r')
   {
+    //START SCREEN MODE
     mode = 0;
   }
 }
@@ -132,6 +148,7 @@ void gameovercheck()
 {
   if (score == -5)
   {
+    //GAME OVER MODE
     mode = 3;
     background(255, 0, 0);
     fill(0);
@@ -151,6 +168,7 @@ void levelupcheck()
 {
   if (score == 5)
   {
+    //increases the level and resets the score
     level++;
     score = 0;
   }
