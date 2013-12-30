@@ -39,6 +39,7 @@ void draw()
     //refreshes and resets the raindrops
     for (int i = 0; i < drop.length; i++)
     {
+      // I would have said drop[i] = new raindrops(), but this actually makes the program run faster
       drop[i].loc = new PVector(random(width), -drop[i].drop.height);
       drop[i].vel = new PVector(0, 2 + level);
       dropNum = 0;
