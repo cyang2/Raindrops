@@ -83,6 +83,7 @@ void draw()
       drop[i].show();
       drop[i].fall();
       //catching the raindrops
+      catcher.show();
       if (drop[i].loc.x >= mouseX && drop[i].loc.x <= mouseX + 72 && drop[i].loc.y >= catcher.loc.y && drop[i].loc.y <= catcher.loc.y + 70)
       {
         //moving the caught raindrops off the screen to the left
@@ -101,7 +102,6 @@ void draw()
         score--;
       }
     }
-    catcher.show();
     //displaying the score
     textSize(20);
     fill(0, 255, 0);
