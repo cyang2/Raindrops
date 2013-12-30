@@ -4,7 +4,6 @@ raindrops[] drop = new raindrops[500];
 catchers catcher;
 timers timer;
 int dropNum;
-int d;
 int score;
 int level;
 int mode;
@@ -12,7 +11,6 @@ int mode;
 void setup()
 {
   size(500, 500);
-  d = 50;
   score = 0;
   level = 0;
   mode = 0;
