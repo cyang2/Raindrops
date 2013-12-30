@@ -16,8 +16,8 @@ class catchers
     loc.set(mouseX + 35, height - 75);
     //mug picture as the catcher
     image(mug, loc.x, loc.y);
-    fill(56, 127, 205);
     //water level
+    fill(56, 127, 205);
     rect(mouseX + 2, loc.y - score*5, 46, 30 + score*5);
   }
 }
